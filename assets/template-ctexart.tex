@@ -1,0 +1,221 @@
+% !TeX program = xelatex
+% ============================================================
+% 通用中文学术论文模板（biblatex + biber + GB/T 7714-2015）
+% 编译：xelatex main.tex → biber main → xelatex main.tex ×2
+% 用法：连同 refs-sample.bib 一起复制到 PROJECT_ROOT，改名为 refs.bib
+% ============================================================
+\documentclass[UTF8,a4paper,zihao=-4]{ctexart}
+
+% ---------- 版面 ----------
+\usepackage{geometry}
+\geometry{a4paper,top=2.5cm,bottom=2.5cm,left=2.8cm,right=2.8cm}
+
+% ---------- 数学与图表 ----------
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{enumitem}
+
+% ---------- 颜色与链接 ----------
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{1F4E79}
+
+% ---------- 参考文献（默认：biblatex + biber + GB/T 7714） ----------
+\usepackage[backend=biber,style=gb7714-2015]{biblatex}
+\addbibresource{refs.bib}
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=accent,
+  citecolor=accent,
+  urlcolor=accent
+}
+
+% ---------- 标题层级 ----------
+\ctexset{
+  section = {
+    format    = \Large\bfseries\heiti,
+    beforeskip = 1.2ex plus .2ex,
+    afterskip  = .8ex plus .1ex,
+  },
+  subsection = {
+    format    = \large\bfseries\heiti,
+    beforeskip = 1.0ex plus .2ex,
+    afterskip  = .6ex plus .1ex,
+  },
+  subsubsection = {
+    format    = \normalsize\bfseries\heiti,
+    beforeskip = .8ex plus .2ex,
+    afterskip  = .4ex plus .1ex,
+  },
+}
+
+% ---------- 题注 ----------
+\captionsetup{font=small,labelsep=quad}
+\captionsetup[table]{position=top,skip=4pt}
+\captionsetup[figure]{position=bottom,skip=4pt}
+
+% ---------- 列表 ----------
+\setlist{nosep,leftmargin=2em}
+
+% ---------- 摘要环境 ----------
+\newenvironment{cnabstract}{%
+  \begin{center}\large\bfseries\heiti 摘要\end{center}
+  \vspace{-6pt}
+  \begin{quote}
+}{%
+  \end{quote}
+}
+
+\begin{document}
+\linespread{1.35}\selectfont
+\pagestyle{plain}
+
+% ============================================================
+% 标题区
+% ============================================================
+\begin{center}
+  {\LARGE\bfseries\heiti 论文题目：在此填写标题\par}
+  \vspace{12pt}
+  {\normalsize 作者姓名\par}
+  \vspace{3pt}
+  {\small 单位名称，城市 邮编\par}
+  \vspace{3pt}
+  {\small \today\par}
+\end{center}
+
+\vspace{6pt}
+
+% ============================================================
+% 摘要
+% ============================================================
+\begin{cnabstract}
+本文针对\ldots\ldots 问题，提出了\ldots\ldots 方法。该方法通过\ldots\ldots 实现\ldots\ldots。
+实验结果表明，所提方法在\ldots\ldots 数据集上将\ldots\ldots 指标提升至\ldots\ldots（给出具体数值），
+较基线方法提高\ldots\ldots。结论适用于\ldots\ldots 条件。
+\end{cnabstract}
+
+\noindent\textbf{关键词：}关键词一；关键词二；关键词三
+
+\vspace{8pt}
+
+% 英文摘要（按需保留或删除）
+\begin{center}\large\bfseries Abstract\end{center}
+\vspace{-6pt}
+\begin{quote}
+\small
+This paper addresses \ldots\ldots. We propose \ldots\ldots. Experiments show that \ldots\ldots.
+\end{quote}
+\noindent\textbf{Keywords:} keyword one; keyword two; keyword three
+
+\vspace{10pt}
+
+% ============================================================
+% 正文
+% ============================================================
+\section{引言}
+\label{sec:intro}
+
+领域背景与研究意义\cite{ref1}。已有工作主要沿两条路线展开\cite{ref2,ref3}，但尚未解决\ldots\ldots。
+本文针对该问题提出\ldots\ldots。
+
+本文的主要贡献如下：
+\begin{enumerate}
+  \item 提出\ldots\ldots 方法，解决\ldots\ldots 问题；
+  \item 在\ldots\ldots 数据集上验证\ldots\ldots；
+  \item 给出\ldots\ldots 的分析与适用边界。
+\end{enumerate}
+
+\section{方法}
+\label{sec:method}
+
+\subsection{问题定义}
+
+设输入为 $x \in \mathbb{R}^{d}$，输出为 $y$，目标是最小化如下损失：
+\begin{equation}
+  \mathcal{L}(\theta) = \frac{1}{N}\sum_{i=1}^{N}\left(y_i - f(x_i;\theta)\right)^2 ,
+  \label{eq:loss}
+\end{equation}
+其中 $N$ 为样本数，$\theta$ 为模型参数，$f(\cdot;\theta)$ 为预测函数。
+
+\subsection{算法流程}
+
+算法步骤如表~\ref{tab:example} 所示。
+
+% ============================================================
+% 表格示例（三线表）
+% ============================================================
+\begin{table}[htbp]
+  \centering
+  \caption{三种方法的性能对比}
+  \label{tab:example}
+  \begin{tabular}{lccc}
+    \toprule
+    方法 & 准确率（\%） & 召回率（\%） & 耗时（s） \\
+    \midrule
+    基线方法 & 82.1 & 79.4 & 12.3 \\
+    对比方法 & 86.5 & 83.1 & 11.6 \\
+    本文方法 & 89.6 & 87.2 & 10.8 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+表~\ref{tab:example} 表明，本文方法在准确率与召回率上均优于基线，且耗时更低。
+
+% ============================================================
+% 图片示例（替换为真实图片）
+% ============================================================
+\begin{figure}[htbp]
+  \centering
+  % \includegraphics[width=0.8\textwidth]{figs/result.pdf}
+  \fbox{\rule{0pt}{4cm}\rule{8cm}{0pt}}
+  \caption{示例图：图中应传达一个明确信息}
+  \label{fig:example}
+\end{figure}
+
+如图~\ref{fig:example} 所示，\ldots\ldots。
+
+\section{实验结果与分析}
+\label{sec:exp}
+
+\subsection{实验设置}
+
+数据来源、划分方式、评价指标与运行环境在此说明。
+
+\subsection{主结果}
+
+结合表~\ref{tab:example} 与图~\ref{fig:example} 分析\ldots\ldots。
+
+\subsection{消融与误差分析}
+
+\section{结论}
+\label{sec:conclusion}
+
+本文提出\ldots\ldots，在\ldots\ldots 条件下取得\ldots\ldots 的结果。
+局限性在于\ldots\ldots，后续可从\ldots\ldots 方向改进。
+
+% ============================================================
+% 参考文献（默认：biblatex + biber + GB/T 7714-2015）
+% ============================================================
+\printbibliography[heading=bibintoc,title={参考文献}]
+
+% 方案二：≤ 10 条的小论文可改用手写条目（无需 biber）
+% 删掉上面这行 \printbibliography 与导言区的 biblatex 两行，改用：
+% \begin{thebibliography}{99}
+% \bibitem{ref1} 作者一, 作者二. 中文文献题名[J]. 期刊名称, 2024, 12(3): 45--52.
+% \bibitem{ref2} Author A, Author B. English paper title[J]. Journal Name, 2023, 45(2): 100--115.
+% \bibitem{ref3} 作者三. 会议论文题名[C]//会议名称. 城市: 出版社, 2023: 1--8.
+% \end{thebibliography}
+
+% ============================================================
+% 附录（按需）
+% ============================================================
+\appendix
+\section{补充材料}
+\label{app:extra}
+
+此处放置推导、代码说明或补充表格。
+
+\end{document}
